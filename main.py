@@ -29,7 +29,7 @@ def parse_events(ical_data: str):
     :return events: A list of events happening today
     """
     now = datetime.datetime.now(tz=CST)
-    today = now.date()+datetime.timedelta(days=1)
+    today = now.date()
     lines = iter(ical_data.splitlines())
     events = []
     current_event = {}
@@ -76,7 +76,7 @@ def parse_events(ical_data: str):
 
 def get_event_data():
     # Get the date in the format of carleton's ICS url
-    now = datetime.datetime.now(tz=CST)+datetime.timedelta(days=1)
+    now = datetime.datetime.now(tz=CST)
     today = now.date()
     today_str = today.strftime('%Y-%m-%d')
     log.debug(f"ICS date is {today_str}")
