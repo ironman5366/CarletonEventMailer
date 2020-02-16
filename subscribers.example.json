@@ -1,0 +1,6 @@
+{
+  "subscribers": [
+    "exampleemail@carleton.edu"
+  ],
+  "sendgrid_api": "YOUR_SENDGRID_API_KEY"
+}
