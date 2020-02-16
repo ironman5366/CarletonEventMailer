@@ -3,7 +3,7 @@ import logging
 import datetime
 import json
 import sys
-import re
+import os
 
 # External imports
 import requests
@@ -20,6 +20,7 @@ log = logging.getLogger('events')
 # Define central time using pytz
 CST = timezone('US/Central')
 
+path = os.path.dirname(__file__)
 
 def parse_events(ical_data: str):
     """
@@ -131,7 +132,7 @@ def email_subscribers(subscribers, sg: SendGridAPIClient, events):
             event_description = "No description found"
         event_str += event_template.format(headline=event["summary"], time=event_time_str, description=event_description,
                                      location=event_location, url=event_url)
-    template = open('regular/mailbakery-omicron-regular.html', encoding='utf-8').read()
+    template = open(f'{path}/regular/mailbakery-omicron-regular.html', encoding='utf-8').read()
     content = template.format(
         date=date_str,
         events=event_str
@@ -148,7 +149,7 @@ def main():
     log.info("Starting logger")
     # Load subscribers from JSON file
     try:
-        subscribers_data = json.load(open("subscribers.json", encoding="utf-8"))
+        subscribers_data = json.load(open(f"{path}/subscribers.json", encoding="utf-8"))
         subscribers = subscribers_data["subscribers"]
         sendgrid_key = subscribers_data["sendgrid_api"]
         # Check to make sure all subscribers look like emails
