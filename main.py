@@ -51,7 +51,7 @@ def parse_events(ical_data: str):
                 current_event = {}
             elif "DTSTART:" in current_line:
                 start_time = dateutil.parser.isoparse(current_line.split("DTSTART:")[1])
-                start_time = start_time.astimezone(CST)
+                start_time = start_time
                 start_date = start_time.date()
                 if start_date == today:
                     current_event["start_time"] = start_time
